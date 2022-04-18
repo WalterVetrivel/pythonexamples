@@ -57,7 +57,7 @@ def generateUnitDict(unitCode: str, creditPoints: int, marks: int):
     }
 
 
-def readUnitDetails(fileName: str):
+def loadUnitDetails(fileName: str):
     '''A function to read the unit details from a file and return it as a list'''
 
     gradesFile = open(f'files/{fileName}.txt', 'r')
@@ -185,7 +185,8 @@ def inputMenu():
                 inputFileName = input(
                     'Enter the file name to get grade data: ')
 
-                unitsList = readUnitDetails(inputFileName)
+                unitsList = loadUnitDetails(inputFileName)
+                print('Grade data loaded successfully from file.')
                 return unitsList
             except:
                 print(
@@ -209,7 +210,7 @@ def main():
 
     while True:
         printMenu('Options', [
-                  'Show grade details', 'Calculate GPA', 'Calculate WAM', 'Update grade details', 'Exit'])
+                  'Show grade details', 'Calculate GPA', 'Calculate WAM', 'Update mark details', 'Save data to file', 'Exit'])
         choice = getChoice(1, 5)
 
         if choice == 1:
@@ -221,7 +222,9 @@ def main():
             wam = calculateWAM(unitsList)
             print(f'Your WAM is: {wam}')
         elif choice == 4:
-            pass
+            printMenu('Update Options', [
+                      'Change marks for unit', 'Add new unit', 'Remove existing unit', 'Back'])
+            updateChoice = getChoice(1, 5)
         elif choice == 5:
             print('Thank you for using our program. Goodbye.')
             exit()
